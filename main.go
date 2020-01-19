@@ -35,6 +35,11 @@ func main() {
 		return
 	}
 
+	if len(args) == 0 {
+		parser.WriteHelp(os.Stdout)
+		return
+	}
+
 	if opts.ShowVersion {
 		_, _ = io.WriteString(os.Stdout, fmt.Sprintf("%s v%s, build %s\n", AppName, Version, GitCommit))
 		return
