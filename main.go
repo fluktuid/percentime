@@ -66,7 +66,7 @@ func wrapper(stdout io.Writer, stdoutCh chan float64, exitCh chan bool) {
 	for {
 		select {
 		case r := <-stdoutCh:
-			err := percentile(r, stdout, os.Stderr, opts)
+			err := percentime(r, stdout, os.Stderr, opts)
 			if err != nil {
 				panic(err)
 			}
