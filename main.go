@@ -31,25 +31,25 @@ func main() {
 	args, err := parser.Parse()
 
 	if err != nil {
-		fmt.Fprint(os.Stderr, err)
+		_, _ = fmt.Fprint(os.Stderr, err)
 		return
 	}
 
 	if opts.ShowVersion {
-		io.WriteString(os.Stdout, fmt.Sprintf("%s v%s, build %s\n", AppName, Version, GitCommit))
+		_, _ = io.WriteString(os.Stdout, fmt.Sprintf("%s v%s, build %s\n", AppName, Version, GitCommit))
 		return
 	}
 
 	cnt, err := strconv.Atoi(args[0])
+	if err != nil {
+		panic(err)
+	}
+
 	cmdName := args[1]
 	cmdArgs := args[2:]
 
 	stdoutCh := make(chan float64)
 	exitCh := make(chan bool)
-
-	if err != nil {
-		panic(err)
-	}
 
 	go wrapper(os.Stdout, stdoutCh, exitCh)
 
