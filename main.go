@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	flags "github.com/jessevdk/go-flags"
+	"github.com/jessevdk/go-flags"
 	"io"
 	"os"
 	"sort"
@@ -66,7 +66,7 @@ func wrapper(stdout io.Writer, stdoutCh chan float64, exitCh chan bool) {
 	for {
 		select {
 		case r := <-stdoutCh:
-			err := percentime(r, stdout, os.Stderr, opts)
+			err := percentime(r, stdout, opts)
 			if err != nil {
 				panic(err)
 			}

@@ -38,7 +38,7 @@ func Ntimes(cnt int, cmdName string, cmdArgs []string, stdin io.Reader, stderr i
 					panic(err)
 				}
 
-				f, err := read(stdoutBuffer, stderr)
+				f, err := read(stdoutBuffer)
 
 				if err != nil {
 					panic(err)
@@ -61,23 +61,12 @@ func Ntimes(cnt int, cmdName string, cmdArgs []string, stdin io.Reader, stderr i
 	wg.Wait()
 }
 
-func printer(stdout io.Writer, stdoutCh chan io.ReadWriter, exitCh chan bool) {
-	for {
-		select {
-		case r := <-stdoutCh:
-			io.Copy(stdout, r)
-		case <-exitCh:
-			return
-		}
-	}
-}
-
 func timeTrack(start time.Time) time.Duration {
 	elapsed := time.Since(start)
 	return elapsed
 }
 
-func read(buff *bytes.Buffer, stderr io.Writer) (float64, error) {
+func read(buff *bytes.Buffer) (float64, error) {
 	str := buff.String()
 
 	lineWithDot := strings.Replace(str, ",", ".", -1)

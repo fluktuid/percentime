@@ -7,9 +7,9 @@ import (
 	"strconv"
 )
 
-func percentime(r float64, stdout io.Writer, stderr io.Writer, opts Options) error {
+func percentime(r float64, stdout io.Writer, opts Options) error {
 	if opts.ShowVersion {
-		io.WriteString(stdout, fmt.Sprintf("%s v%s, build %s\n", AppName, Version, GitCommit))
+		_, _ = io.WriteString(stdout, fmt.Sprintf("%s v%s, build %s\n", AppName, Version, GitCommit))
 		return nil
 	}
 
@@ -38,11 +38,11 @@ func percentimeN(numbers *sort.Float64Slice, l, n int) float64 {
 }
 
 func printPercentileN(w io.Writer, numbers *sort.Float64Slice, l, n int) {
-	fmt.Fprintf(w, "%d%%:\t%s\n", n, strconv.FormatFloat(percentimeN(numbers, l, n), 'g', 5, 64))
+	_, _ = fmt.Fprintf(w, "%d%%:\t%s\n", n, strconv.FormatFloat(percentimeN(numbers, l, n), 'g', 5, 64))
 }
 
 func deletePreviouslines(w io.Writer, count int) {
 	for i := 0; i < count; i++ {
-		fmt.Fprint(w, "\033[F\033[K")
+		_, _ = fmt.Fprint(w, "\033[F\033[K")
 	}
 }
