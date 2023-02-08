@@ -31,7 +31,7 @@ func Ntimes(cnt int, cmdName string, cmdArgs []string, stdin io.Reader, stderr i
 			if opts.UseCmdResp {
 				cmd.Stdin = stdin
 				cmd.Stdout = stdoutBuffer
-				cmd.Stderr = stderr
+				cmd.Stderr = nilWriter{}
 				err := cmd.Run()
 
 				if err != nil {
@@ -46,6 +46,9 @@ func Ntimes(cnt int, cmdName string, cmdArgs []string, stdin io.Reader, stderr i
 
 				stdoutCh <- f
 			} else {
+				cmd.Stdin = nilReader{}
+				cmd.Stdout = nilWriter{}
+				cmd.Stderr = nilWriter{}
 				start := time.Now()
 				err := cmd.Run()
 				elapsed := timeTrack(start)
