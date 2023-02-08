@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
-	"github.com/jessevdk/go-flags"
 	"io"
 	"os"
 	"sort"
 	"strconv"
+
+	"github.com/jessevdk/go-flags"
 )
 
 const AppName = "percentime"
